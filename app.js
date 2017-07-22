@@ -6,32 +6,22 @@ var PROD = '1.1.1.1';
 var PORT = 25000;
 
 var client = new net.Socket();
-client.connect(PORT, TEST, function() {
+client.connect(PORT, PROD, function() {
 
-    console.log('CONNECTED TO: ' + TEST + ':' + PORT);
+    console.log('CONNECTED TO: ' + PROD + ':' + PORT);
     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-    client.write(JSON.stringify({"type": "hello", "team": "CTS"}));
+    client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n");
 });
 
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
-
-
-    //var buf = Buffer.from(JSON.stringify(data));
-    console.log(data.toString('utf-8'))
-    //console.log(typeof data);
-    //var splitted = lines.split('\n');
-
-    // splitted.forEach(function(line) {
-    //   if (line.includes("BOOK BOND")) {
-    //     console.log(line);
-    //   }
-    // })
-    //console.log('DATA: ' + data);
-    // Close the client socket completely
-    //client.destroy();
-
+    //console.log(typeof data.toString('utf-8'));
+    var stringData = data.toString('utf-8').split("\n");
+    var obj = JSON.parse(stringData[stringData.length - 2]);
+    if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
+      console.log(obj);
+    }
 });
 
 // Add a 'close' event handler for the client socket
