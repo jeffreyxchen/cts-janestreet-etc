@@ -36,7 +36,7 @@ client.on('data', function(data) {
   var obj = JSON.parse(stringData[stringData.length - 2]);
 
   }
-});
+);
 
 // Add a 'close' event handler for the client socket
 client.on('close', function() {
