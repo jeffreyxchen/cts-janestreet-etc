@@ -6,22 +6,20 @@ var PROD = '1.1.1.1';
 var PORT = 25000;
 
 var client = new net.Socket();
-client.connect(PORT, PROD, function() {
+client.connect(PORT, TEST, function() {
 
     console.log('CONNECTED TO: ' + TEST + ':' + PORT);
     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-    client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n" +
-    JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "BOND", "dir": "BUY", "price": 999, "size": 10}) + "\n" +
-    JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "BOND", "dir": "SELL", "price": 1000, "size": 10} + "\n"));
+    client.write(JSON.stringify({"type": "hello", "team": "CTS"}));
 });
 
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
 
-    var buf = new Buffer(data, "utf-8");
-    var temp = JSON.parse(buf);
-    console.log(temp);
+
+    //var buf = Buffer.from(JSON.stringify(data));
+    console.log(data.toString('utf-8'))
     //console.log(typeof data);
     //var splitted = lines.split('\n');
 
