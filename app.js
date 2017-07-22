@@ -18,7 +18,7 @@ client.connect(PORT, PROD, function() {
 // data is what the server sent to this socket
 client.on('data', function(data) {
 
-    var buf = new Buffer(JSON.parse(data));
+    var buf = new Buffer(data);
     var temp = JSON.stringify(buf);
     console.log(temp);
     //console.log(typeof data);
