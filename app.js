@@ -11,19 +11,21 @@ client.connect(PORT, PROD, function() {
     console.log('CONNECTED TO: ' + PROD + ':' + PORT);
     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
     client.write("HELLO CTS\n");
-    
+
 });
 
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
-    var splitted = data.split('\n');
+    var jsoned = JSON.parse(data);
+    console.log(jsoned);
+    //var splitted = data.split('\n');
 
-    splitted.forEach(function(line) {
-      if (data.includes("BOOK BOND")) {
-        console.log(line);
-      }
-    })
+    // splitted.forEach(function(line) {
+    //   if (data.includes("BOOK BOND")) {
+    //     console.log(line);
+    //   }
+    // })
     //console.log('DATA: ' + data);
     // Close the client socket completely
     //client.destroy();
