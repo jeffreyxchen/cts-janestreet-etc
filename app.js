@@ -87,9 +87,9 @@ client.on('data', function(data) {
   }
 
   function bonds() {
-    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 10})+"\n");
+    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 1})+"\n");
     counter++;
-    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL", "price": 1000, "size": 10})+"\n");
+    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL", "price": 1000, "size": 1})+"\n");
     counter++;
   }
 
