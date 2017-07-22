@@ -89,7 +89,7 @@ client.on('data', function(data) {
   function bonds() {
     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 10})+"\n");
     counter++;
-    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL", "price": 1001, "size": 10})+"\n");
+    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL", "price": 1000, "size": 10})+"\n");
     counter++;
   }
 
@@ -120,6 +120,7 @@ client.on('data', function(data) {
     }
 
     if (nokus_buy !== 0 && nokfh_sell !== 0) {
+      console.log("doing stuff");
       doNOKUSArbitrage(nokus_buy, nokfh_sell);
     }
 
