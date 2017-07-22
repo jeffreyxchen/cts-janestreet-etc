@@ -3,14 +3,15 @@ var net = require('net');
 
 var TEST = '10.0.49.161';
 var PROD = '1.1.1.1';
-var PORT = 20000;
+var PORT = 25000;
 
 var client = new net.Socket();
 client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PORT);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-  client.write("HELLO CTS\n");
+  // client.write();
+  client.write(JSON.stringify({"type": "hello", "team": "CTS"})+"\n"+JSON.stringify({"type": "add", "order_id": 1, "symbol": "BOND", "dir": "BUY", "price": 1010, "size": 1})+"\n");
   console.log('INSIDE CLIENT');
   function doNOKUSArbitrage (nokus, nokfh) {
     var index = 0;
@@ -20,9 +21,9 @@ client.connect(PORT, TEST, function() {
       valNOKUS = amtNOKUS + 10;
       if (valNOKUS < nokfh) {
         //send the following obj
-        client.write(JSON.stringify({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
-        client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1}));
-        console.log('TRADES MADE');
+        client.write(JSON.stringify({"type": "add", "order_id": index, "symbol": "NOKFH", "dir": "BUY", "price": 4200, "size": 1})+"\n");
+        client.write(JSON.stringify({"type": "convert", "order_id": index, "symbol": "NOKFH", "dir": "SELL", "size": 1})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": index, "symbol": "NOKUS", "dir": "SELL", "price": 4205, "size": 1})+"\n");
       }
       // else {
       //   var tempAMT = amt;
