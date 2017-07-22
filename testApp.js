@@ -19,8 +19,8 @@ client.connect(PORT, TEST, function() {
       valNOKUS = amtNOKUS + 10;
       if (valNOKUS < nokfh) {
         //send the following obj
-        client.write(JSON.parse({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1});
-        client.write(JSON.parse({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1});
+        client.write(JSON.parse({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
+        client.write(JSON.parse({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1}));
       }
       // else {
       //   var tempAMT = amt;
