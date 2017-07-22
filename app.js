@@ -25,12 +25,10 @@ client.connect(PORT, TEST, function() {
 client.on('data', function(data) {
   //console.log(typeof data.toString('utf-8'));
   function doNOKUSArbitrage (nokus, nokfh) {
-    console.log(nokus, nokfh)
     var amt = 1;
     amtNOKUS = amt * nokus;
     valNOKUS = amtNOKUS + 10;
     if (valNOKUS < nokfh) {
-      console.log('NOKUS inital if');
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 5})+"\n");
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "size": 5})+"\n");
@@ -44,7 +42,6 @@ client.on('data', function(data) {
         tempAMT++;
       }
       if(tempAMT > 10) {
-        console.log('NOKUS returned')
         return;
       }
       else {
@@ -59,12 +56,10 @@ client.on('data', function(data) {
   }
 
   function doNOKFHArbitrage (nokus, nokfh) {
-    console.log(nokus, nokfh);
     var amt = 1;
     amtNOKFH = amt * nokfh;
     valNOKFH = amtNOKFH + 10;
     if (valNOKFH < nokus) {
-      console.log('NOKFHA initial if')
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 5})+"\n");
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
@@ -77,7 +72,6 @@ client.on('data', function(data) {
         tempAMT++;
       }
       if(tempAMT > 10) {
-        console.log('NOKFHA returned');
         return;
       }
       else {
@@ -93,9 +87,9 @@ client.on('data', function(data) {
 
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
-  if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
-    console.log(obj);
-  }
+  // if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
+  //   console.log(obj);
+  // }
 
   if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
     if (obj.symbol === "NOKUS") {
