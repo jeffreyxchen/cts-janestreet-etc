@@ -80,8 +80,6 @@ client.on('data', function(data) {
     var obj = JSON.parse(stringData[stringData.length - 2]);
     if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
       if (obj.symbol === "NOKUS") {
-        console.log(obj.buy);
-        console.log(obj.sell);
         if (obj.buy[0] !== undefined) {
           nokus_buy = obj.buy[0][0];
         }
@@ -89,8 +87,6 @@ client.on('data', function(data) {
           nokus_sell = obj.sell[0][0]
         }
       } else {
-        console.log(obj.buy);
-        console.log(obj.sell);
         if (obj.buy[0] !== undefined) {
           nokfh_buy = obj.buy[0][0];
         }
