@@ -1,6 +1,5 @@
 //arbitrage stuff
 var net = require('net');
-var adr = require('./arbitrageADR');
 
 var TEST = '10.0.49.161';
 var PROD = '1.1.1.1';
@@ -13,7 +12,7 @@ var nokus_buy = 0;
 var nokus_sell = 0;
 var counter = 0;
 
-client.connect(PORT, PROD, function() {
+client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
@@ -86,21 +85,11 @@ client.on('data', function(data) {
     // }
   }
 
-  function bonds() {
-    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 1})+"\n");
-    counter++;
-    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL", "price": 1000, "size": 1})+"\n");
-    counter++;
-  }
-
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
-  if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill"|| obj.type === "hello") {
-    if (obj.type === "fill" || obj.type === "hello") {
-      console.log(obj);
-    }
-  }
-  bonds();
+  // if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
+  //   console.log(obj);
+  // }
 
   if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
     if (obj.symbol === "NOKUS") {
@@ -119,14 +108,13 @@ client.on('data', function(data) {
       }
     }
 
-    if (nokus_buy !== 0 && nokfh_sell !== 0) {
-      console.log("doing stuff");
-      doNOKUSArbitrage(nokus_buy, nokfh_sell);
-    }
-
-    if (nokus_sell !== 0 && nokfh_buy !== 0) {
-      doNOKFHArbitrage(nokus_sell, nokfh_buy);
-    }
+    // if (nokus_buy !== 0 && nokfh_sell !== 0) {
+    //   doNOKUSArbitrage(nokus_buy, nokfh_sell);
+    // }
+    //
+    // if (nokus_sell !== 0 && nokfh_buy !== 0) {
+    //   doNOKFHArbitrage(nokus_sell, nokfh_buy);
+    // }
 
   }
 });
