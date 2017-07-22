@@ -3,14 +3,14 @@ var net = require('net');
 
 var TEST = '10.0.49.161';
 var PROD = '1.1.1.1';
-var PORT = 20000;
+var PORT = 25000;
 
 var client = new net.Socket();
 client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PORT);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-  client.write("HELLO CTS\n");
+  client.write(JSON.stringify({"type": "hello", "team": "CTS"}));
   client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
   console.log('INSIDE CLIENT');
   function doNOKUSArbitrage (nokus, nokfh) {
