@@ -18,11 +18,10 @@ client.connect(PORT, PROD, function() {
 client.on('data', function(data) {
     //console.log(typeof data.toString('utf-8'));
     var stringData = data.toString('utf-8').split("\n");
-    console.log(stringData[stringData.length - 2]);
-    // var obj = JSON.parse(stringData);
-    // if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
-    //   console.log(obj);
-    // }
+    var obj = JSON.parse(stringData[stringData.length - 2]);
+    if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
+      console.log(obj);
+    }
 });
 
 // Add a 'close' event handler for the client socket
