@@ -10,8 +10,8 @@ client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PORT);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-  client.write(JSON.stringify({"type": "hello", "team": "CTS"})+"\n");
-  client.write(JSON.stringify({"type": "add", "order_id": N, "symbol": "NOKFH", "dir": "BUY", "price": 4200, "size": 1})+"\n");
+  // client.write();
+  client.write(JSON.stringify({"type": "hello", "team": "CTS"})+"\n"+JSON.stringify({"type": "add", "order_id": 1, "symbol": "NOKFH", "dir": "BUY", "price": 4200, "size": 1})+"\n");
   console.log('INSIDE CLIENT');
   function doNOKUSArbitrage (nokus, nokfh) {
     var index = 0;
