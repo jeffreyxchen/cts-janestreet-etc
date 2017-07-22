@@ -94,7 +94,7 @@ client.on('data', function(data) {
       doNOKFHArbitrage(nokus_sell, nokfh_buy);
     }
 
-    bonds();
+    //bonds();
 
   }
 });
