@@ -30,9 +30,9 @@ client.on('data', function(data) {
     valNOKUS = amtNOKUS + 10;
     if (valNOKUS < nokfh) {
       console.log('NOKUS inital if');
-      client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 5})+"\n");
-      client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 5})+"\n");
-      client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 5})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 5})+"\n");
+      client.write(JSON.stringify({"type": "convert", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "SELL", "size": 5})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 5})+"\n");
     }
     else {
       var tempAMT = amt;
@@ -44,9 +44,9 @@ client.on('data', function(data) {
         return;
       }
       else {
-        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 2*tempAMT})+"\n");
-        client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT})+"\n");
-        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 2*tempAMT})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 2*tempAMT})+"\n");
+        client.write(JSON.stringify({"type": "convert", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 2*tempAMT})+"\n");
       }
     }
   }
@@ -58,9 +58,9 @@ client.on('data', function(data) {
     valNOKFH = amtNOKFH + 10;
     if (valNOKFH < nokus) {
       console.log('NOKFHA initial if')
-      client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 5})+"\n");
-      client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
-      client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 5})+"\n");
+      client.write(JSON.stringify({"type": "convert", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
     } else {
       var tempAMT = amt;
       while ((nokus*tempAMT+10)/tempAMT < nokfh) {
@@ -71,9 +71,9 @@ client.on('data', function(data) {
         return;
       }
       else {
-        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
-        client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
-        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
+        client.write(JSON.stringify({"type": "convert", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": new Date().getTime(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
       }
     }
   }
