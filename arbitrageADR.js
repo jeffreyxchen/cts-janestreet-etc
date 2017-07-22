@@ -1,4 +1,3 @@
-
 {"type": "hello", "team": "CTS"}
 
 //nokus = stock, nokfh = ADR, conversion rate = 10/conversion
