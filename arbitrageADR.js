@@ -9,8 +9,8 @@ function doNOKUSArbitrage (nokus, nokfh) {
     valNOKUS = amtNOKUS + 10;
     if (valNOKUS < nokfh) {
       //send the following obj
-      {"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1};
-      {"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1};
+      client.write({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1});
+      client.write({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1});
     } else {
       var tempAMT = amt;
       while ((nokus*tempAMT+10)/tempAMT < nokfh) {
@@ -20,8 +20,8 @@ function doNOKUSArbitrage (nokus, nokfh) {
         return;
         else {
           //send the following obj
-          {"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 2*tempAMT};
-          {"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT};
+          client.write({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 2*tempAMT});
+          client.write({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT});
         }
       }
     }
