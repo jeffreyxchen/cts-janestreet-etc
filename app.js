@@ -24,11 +24,11 @@ client.connect(PORT, TEST, function() {
 client.on('data', function(data) {
     //console.log(typeof data.toString('utf-8'));
     function doNOKUSArbitrage (nokus, nokfh) {
+      console.log(nokus, nokfh)
       var amt = 1;
       amtNOKUS = amt * nokus;
       valNOKUS = amtNOKUS + 10;
       if (valNOKUS < nokfh) {
-        console.log('trade made')
         client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 5})+"\n");
         client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 5})+"\n");
         client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 5})+"\n");
@@ -42,7 +42,6 @@ client.on('data', function(data) {
           return;
         }
         else {
-          console.log('trade made')
           client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 2*tempAMT})+"\n");
           client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT})+"\n");
           client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 2*tempAMT})+"\n");
@@ -51,11 +50,11 @@ client.on('data', function(data) {
     }
 
     function doNOKFHArbitrage (nokus, nokfh) {
+      console.log(nokus, nokfh);
       var amt = 1;
       amtNOKFH = amt * nokfh;
       valNOKFH = amtNOKFH + 10;
       if (valNOKFH < nokus) {
-        console.log('trade made')
         client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 5})+"\n");
         client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
         client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
@@ -68,7 +67,6 @@ client.on('data', function(data) {
           return;
         }
         else {
-          console.log('trade made')
           client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
           client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
           client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
