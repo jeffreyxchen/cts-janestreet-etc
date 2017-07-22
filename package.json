@@ -4,7 +4,8 @@
   "description": "Jane Street Electronic Trading Challenge 2017",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node app.js --presets es2015,stage-2"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,10 @@
   "dependencies": {
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   }
 }
