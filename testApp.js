@@ -40,7 +40,7 @@ client.connect(PORT, HOST, function() {
   }
 }
 
-doNOKUSArbitrage(90, 100);
+return doNOKUSArbitrage(90, 100);
 });
 
 // Add a 'data' event handler for the client socket
