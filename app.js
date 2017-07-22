@@ -8,7 +8,7 @@ var PORT = 25000;
 var client = new net.Socket();
 client.connect(PORT, PROD, function() {
 
-    console.log('CONNECTED TO: ' + PROD + ':' + PORT);
+    console.log('CONNECTED TO: ' + TEST + ':' + PORT);
     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
     client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n" +
     JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "BOND", "dir": "BUY", "price": 999, "size": 10}) + "\n" +
