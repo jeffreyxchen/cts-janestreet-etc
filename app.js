@@ -17,7 +17,7 @@ client.connect(PORT, PROD, function() {
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
-    var buf = new Buffer.from(JSON.stringify(data));
+    var buf = Buffer.from(JSON.stringify(data));
     var temp = JSON.parse(buf.toString());
     console.log(temp);
     //var splitted = lines.split('\n');
