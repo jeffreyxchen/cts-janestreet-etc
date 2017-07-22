@@ -18,7 +18,7 @@ client.connect(PORT, PROD, function() {
 client.on('data', function(data) {
     //console.log(typeof data.toString('utf-8'));
     var stringData = data.toString('utf-8').split("\n");
-    console.log(stringData[stringData.length]);
+    console.log(stringData[stringData.length - 1]);
     // var obj = JSON.parse(stringData);
     // if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
     //   console.log(obj);
