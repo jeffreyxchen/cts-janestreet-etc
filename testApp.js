@@ -11,6 +11,7 @@ client.connect(PORT, TEST, function() {
   console.log('CONNECTED TO: ' + TEST + ':' + PORT);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
   client.write("HELLO CTS\n");
+  client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
   console.log('INSIDE CLIENT');
   function doNOKUSArbitrage (nokus, nokfh) {
     var index = 0;
@@ -20,6 +21,7 @@ client.connect(PORT, TEST, function() {
       valNOKUS = amtNOKUS + 10;
       if (valNOKUS < nokfh) {
         //send the following obj
+        console.log('INSIDE IF');
         client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
         client.write(JSON.stringify({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "SELL", "size": 1}));
         client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1}));
