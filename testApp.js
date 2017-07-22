@@ -6,7 +6,7 @@ var PROD = '1.1.1.1';
 var PORT = 20000;
 
 var client = new net.Socket();
-client.connect(PORT, HOST, function() {
+client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PORT);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
