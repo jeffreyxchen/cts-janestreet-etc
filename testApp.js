@@ -38,9 +38,7 @@ client.connect(PORT, HOST, function() {
     }
     index++;
   }
-}
-
-return doNOKUSArbitrage(90, 100);
+  doNOKUSArbitrage(90, 100);
 });
 
 // Add a 'data' event handler for the client socket
