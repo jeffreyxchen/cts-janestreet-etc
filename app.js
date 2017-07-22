@@ -118,9 +118,9 @@ client.on('data', function(data) {
       doNOKUSArbitrage(nokus_buy, nokfh_sell);
     }
 
-    // if (nokus_sell !== 0 && nokfh_buy !== 0) {
-    //   doNOKFHArbitrage(nokus_sell, nokfh_buy);
-    // }
+    if (nokus_sell !== 0 && nokfh_buy !== 0) {
+      doNOKFHArbitrage(nokus_sell, nokfh_buy);
+    }
 
   }
 });
