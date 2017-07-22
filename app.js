@@ -96,11 +96,11 @@ client.on('data', function(data) {
       }
 
       if (nokus_buy !== 0 && nokfh_sell !== 0) {
-        this.doNOKUSArbitrage(nokus_buy, nokfh_sell);
+        doNOKUSArbitrage(nokus_buy, nokfh_sell);
       }
 
       if (nokus_sell !== 0 && nokfh_buy !== 0) {
-        this.doNOKFHArbitrage(nokus_sell, nokfh_buy);
+        doNOKFHArbitrage(nokus_sell, nokfh_buy);
       }
 
     }
