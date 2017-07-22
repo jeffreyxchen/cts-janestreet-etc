@@ -67,7 +67,6 @@ client.on('data', function(data) {
       console.log(obj);
     }
   }
-  bonds();
 
   if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
     if (obj.symbol === "NOKUS") {
@@ -94,6 +93,8 @@ client.on('data', function(data) {
     if (nokus_sell !== 0 && nokfh_buy !== 0) {
       doNOKFHArbitrage(nokus_sell, nokfh_buy);
     }
+
+    bonds();
 
   }
 });
