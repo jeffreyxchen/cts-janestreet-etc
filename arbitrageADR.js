@@ -40,11 +40,11 @@ function doNOKFHArbitrage (nokus, nokfh, client) {
     }
     if(tempAMT > 10) {
       return;
-      else {
-        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
-        client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
-        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
-      }
+    }
+    else {
+      client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
+      client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
     }
   }
 }
