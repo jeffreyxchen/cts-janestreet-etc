@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
-  "name": "janestreet-etc",
-  "version": "1.0.0",
-  "description": "Jane Street Electronic Trading Challenge 2017",
-=======
   "name": "cts-janestreet-etc",
   "version": "1.0.0",
-  "description": "",
->>>>>>> 98fff14dd1899b2a11c3c0356e0ae3aaf1351408
+  "description": "Jane Street Electronic Trading Challenge 2017",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,22 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/jeffreyxchen/cts-janestreet-etc.git"
   },
-<<<<<<< HEAD
   "author": "Jeffrey Chen, Alex Kim, Amy Jin",
-=======
-  "author": "",
->>>>>>> 98fff14dd1899b2a11c3c0356e0ae3aaf1351408
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jeffreyxchen/cts-janestreet-etc/issues"
   },
-<<<<<<< HEAD
   "homepage": "https://github.com/jeffreyxchen/cts-janestreet-etc#readme",
   "dependencies": {
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3"
   }
-=======
-  "homepage": "https://github.com/jeffreyxchen/cts-janestreet-etc#readme"
->>>>>>> 98fff14dd1899b2a11c3c0356e0ae3aaf1351408
 }
