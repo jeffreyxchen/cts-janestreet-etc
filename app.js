@@ -13,9 +13,9 @@ var nokus_buy = 0;
 var nokus_sell = 0;
 var counter = 0;
 
-client.connect(PORT, TEST, function() {
+client.connect(PORT, PROD, function() {
 
-  console.log('CONNECTED TO: ' + TEST + ':' + PORT);
+  console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
   client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n");
 });
