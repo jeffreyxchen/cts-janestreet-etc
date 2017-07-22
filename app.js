@@ -25,6 +25,11 @@ client.on('data', function(data) {
     //console.log(typeof data.toString('utf-8'));
     var stringData = data.toString('utf-8').split("\n");
     var obj = JSON.parse(stringData[stringData.length - 2]);
+
+    if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
+      console.log(obj);
+    }
+
     if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
       if (obj.symbol === "NOKUS") {
         if (obj.buy[0] !== undefined) {
