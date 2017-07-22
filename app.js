@@ -17,8 +17,9 @@ client.connect(PORT, TEST, function() {
 // data is what the server sent to this socket
 client.on('data', function(data) {
 
-    var buf = Buffer.from(JSON.stringify(data));
-    console.log(buf.toString('utf8'))
+
+    //var buf = Buffer.from(JSON.stringify(data));
+    console.log(data.toString('utf-8'))
     //console.log(typeof data);
     //var splitted = lines.split('\n');
 
