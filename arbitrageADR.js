@@ -49,7 +49,7 @@ function doNOKFHArbitrage (nokus, nokfh, client) {
   }
 }
 
-modules.export = {
+module.exports = {
   doNOKUSArbitrage : doNOKUSArbitrage,
   doNOKFHArbitrage : doNOKFHArbitrage
 }
