@@ -17,7 +17,7 @@ client.connect(PORT, PROD, function() {
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
-    console.log(jsoned.toString());
+    console.log(data.toString());
     //var splitted = data.split('\n');
 
     // splitted.forEach(function(line) {
