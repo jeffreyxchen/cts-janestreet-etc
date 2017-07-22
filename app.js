@@ -85,7 +85,12 @@ client.on('data', function(data) {
     }
   }
 
-  //function bonds()
+  function bonds() {
+    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 10})+"\n");
+    counter++;
+    client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL", "price": 1001, "size": 10})+"\n");
+    counter++;
+  }
 
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
@@ -94,6 +99,7 @@ client.on('data', function(data) {
       console.log(obj);
     }
   }
+  bonds();
 
   if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
     if (obj.symbol === "NOKUS") {
