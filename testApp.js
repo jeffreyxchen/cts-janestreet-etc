@@ -23,7 +23,6 @@ client.connect(PORT, TEST, function() {
         client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
         client.write(JSON.stringify({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "SELL", "size": 1}));
         client.write(JSON.stringify({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1}));
-        console.log('TRADES MADE');
       }
       // else {
       //   var tempAMT = amt;
