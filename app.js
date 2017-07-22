@@ -19,7 +19,7 @@ client.connect(PORT, PROD, function() {
 client.on('data', function(data) {
 
     var buf = new Buffer(data);
-    var temp = JSON.stringify(buf);
+    var temp = JSON.parse(buf.toString());
     console.log(temp);
     //console.log(typeof data);
     //var splitted = lines.split('\n');
