@@ -1,4 +1,4 @@
-var io = require('socket.io-client');
+var net = 
 var socket = io('http://10.0.49.161');
 
 console.log("hello");
