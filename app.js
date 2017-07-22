@@ -17,7 +17,8 @@ client.connect(PORT, PROD, function() {
 // data is what the server sent to this socket
 client.on('data', function(data) {
     console.log(typeof data.toString('utf-8'));
-    var obj = JSON.parse(data.toString('utf-8'));
+    var stringData = data.toString('utf-8');
+    var obj = JSON.parse(stringData);
     if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
       console.log(obj);
     }
