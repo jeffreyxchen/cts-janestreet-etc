@@ -29,6 +29,7 @@ client.on('data', function(data) {
     amtNOKUS = amt * nokus;
     valNOKUS = amtNOKUS + 10;
     if (valNOKUS < nokfh) {
+      console.log('NOKUS inital if');
       client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 5})+"\n");
       client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 5})+"\n");
       client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 5})+"\n");
@@ -39,6 +40,7 @@ client.on('data', function(data) {
         tempAMT++;
       }
       if(tempAMT > 10) {
+        console.log('NOKUS returned')
         return;
       }
       else {
@@ -55,6 +57,7 @@ client.on('data', function(data) {
     amtNOKFH = amt * nokfh;
     valNOKFH = amtNOKFH + 10;
     if (valNOKFH < nokus) {
+      console.log('NOKFHA initial if')
       client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 5})+"\n");
       client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
       client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
@@ -64,6 +67,7 @@ client.on('data', function(data) {
         tempAMT++;
       }
       if(tempAMT > 10) {
+        console.log('NOKFHA returned');
         return;
       }
       else {
