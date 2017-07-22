@@ -109,13 +109,13 @@ client.on('data', function(data) {
       }
     }
 
-    if (nokus_buy !== 0 && nokfh_sell !== 0) {
-      doNOKUSArbitrage(nokus_buy, nokfh_sell);
-    }
-
-    if (nokus_sell !== 0 && nokfh_buy !== 0) {
-      doNOKFHArbitrage(nokus_sell, nokfh_buy);
-    }
+    // if (nokus_buy !== 0 && nokfh_sell !== 0) {
+    //   doNOKUSArbitrage(nokus_buy, nokfh_sell);
+    // }
+    //
+    // if (nokus_sell !== 0 && nokfh_buy !== 0) {
+    //   doNOKFHArbitrage(nokus_sell, nokfh_buy);
+    // }
 
   }
 });
