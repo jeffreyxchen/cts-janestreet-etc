@@ -18,15 +18,16 @@ function doNOKUSArbitrage (nokus, nokfh) {
       }
       if(tempAMT > 20) {
         return;
-        else {
-          //send the following obj
-          client.write({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 2*tempAMT});
-          client.write({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT});
-        }
+      }
+      else {
+        //send the following obj
+        client.write({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 2*tempAMT});
+        client.write({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT});
       }
     }
-    index++;
   }
+  index++;
+}
 }
 
 doNOKUSArbitrage(90, 100);
