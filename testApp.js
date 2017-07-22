@@ -22,6 +22,7 @@ client.connect(PORT, TEST, function() {
         //send the following obj
         client.write(JSON.parse({"type": "convert", "order_id": index+new Date(), "symbol": "NOKFH", "dir": "BUY", "size": 1}));
         client.write(JSON.parse({"type": "add", "order_id": index+new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 1}));
+        console.log('TRADES MADE');
       }
       // else {
       //   var tempAMT = amt;
@@ -40,7 +41,7 @@ client.connect(PORT, TEST, function() {
     }
     index++;
   }
-  doNOKUSArbitrage(90, 100);
+  doNOKUSArbitrage(80, 100);
 });
 
 // Add a 'data' event handler for the client socket
