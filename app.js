@@ -17,14 +17,15 @@ client.connect(PORT, PROD, function() {
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
+    console.log(data.type);
     var lines = data.toString();
-    var splitted = lines.split('\n');
+    //var splitted = lines.split('\n');
 
-    splitted.forEach(function(line) {
-      if (line.includes("BOOK BOND")) {
-        console.log(line);
-      }
-    })
+    // splitted.forEach(function(line) {
+    //   if (line.includes("BOOK BOND")) {
+    //     console.log(line);
+    //   }
+    // })
     //console.log('DATA: ' + data);
     // Close the client socket completely
     //client.destroy();
