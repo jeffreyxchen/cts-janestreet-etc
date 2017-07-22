@@ -23,6 +23,59 @@ client.connect(PORT, TEST, function() {
 // data is what the server sent to this socket
 client.on('data', function(data) {
     //console.log(typeof data.toString('utf-8'));
+    function doNOKUSArbitrage (nokus, nokfh) {
+      var amt = 1;
+      amtNOKUS = amt * nokus;
+      valNOKUS = amtNOKUS + 10;
+      if (valNOKUS < nokfh) {
+        console.log('trade made')
+        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 5})+"\n");
+        client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 5})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 5})+"\n");
+      }
+      else {
+        var tempAMT = amt;
+        while ((nokus*tempAMT+10)/tempAMT < nokfh) {
+          tempAMT++;
+        }
+        if(tempAMT > 10) {
+          return;
+        }
+        else {
+          console.log('trade made')
+          client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 2*tempAMT})+"\n");
+          client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT})+"\n");
+          client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 2*tempAMT})+"\n");
+        }
+      }
+    }
+
+    function doNOKFHArbitrage (nokus, nokfh) {
+      var amt = 1;
+      amtNOKFH = amt * nokfh;
+      valNOKFH = amtNOKFH + 10;
+      if (valNOKFH < nokus) {
+        console.log('trade made')
+        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 5})+"\n");
+        client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
+        client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
+      } else {
+        var tempAMT = amt;
+        while ((nokus*tempAMT+10)/tempAMT < nokfh) {
+          tempAMT++;
+        }
+        if(tempAMT > 10) {
+          return;
+        }
+        else {
+          console.log('trade made')
+          client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
+          client.write(JSON.stringify({"type": "convert", "order_id": new Date(), "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
+          client.write(JSON.stringify({"type": "add", "order_id": new Date(), "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
+        }
+      }
+    }
+
     var stringData = data.toString('utf-8').split("\n");
     var obj = JSON.parse(stringData[stringData.length - 2]);
     if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
@@ -47,11 +100,11 @@ client.on('data', function(data) {
       }
 
       if (nokus_buy !== 0 && nokfh_sell !== 0) {
-        adr.doNOKUSArbitrage(nokus_buy, nokfh_sell, client);
+        this.doNOKUSArbitrage(nokus_buy, nokfh_sell);
       }
 
       if (nokus_sell !== 0 && nokfh_buy !== 0) {
-        adr.doNOKFHArbitrage(nokus_sell, nokfh_buy, client);
+        this.doNOKFHArbitrage(nokus_sell, nokfh_buy);
       }
 
     }
