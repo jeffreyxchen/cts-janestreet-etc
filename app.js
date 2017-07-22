@@ -36,23 +36,23 @@ client.on('data', function(data) {
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 5})+"\n");
       counter++;
     }
-    else {
-      var tempAMT = amt;
-      while ((nokus*tempAMT+10)/tempAMT < nokfh) {
-        tempAMT++;
-      }
-      if(tempAMT > 10) {
-        return;
-      }
-      else {
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 2*tempAMT})+"\n");
-        counter++;
-        client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT})+"\n");
-        counter++;
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 2*tempAMT})+"\n");
-        counter++;
-      }
-    }
+    // else {
+    //   var tempAMT = amt;
+    //   while ((nokus*tempAMT+10)/tempAMT < nokfh) {
+    //     tempAMT++;
+    //   }
+    //   if(tempAMT > 10) {
+    //     return;
+    //   }
+    //   else {
+    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "price": nokus, "size": 2*tempAMT})+"\n");
+    //     counter++;
+    //     client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "size": 2*tempAMT})+"\n");
+    //     counter++;
+    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKFH", "dir": "SELL", "price": nokfh, "size": 2*tempAMT})+"\n");
+    //     counter++;
+    //   }
+    // }
   }
 
   function doNOKFHArbitrage (nokus, nokfh) {
@@ -66,23 +66,24 @@ client.on('data', function(data) {
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
       counter++;
-    } else {
-      var tempAMT = amt;
-      while ((nokus*tempAMT+10)/tempAMT < nokfh) {
-        tempAMT++;
-      }
-      if(tempAMT > 10) {
-        return;
-      }
-      else {
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
-        counter++;
-        client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
-        counter++;
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
-        counter++;
-      }
     }
+    // else {
+    //   var tempAMT = amt;
+    //   while ((nokus*tempAMT+10)/tempAMT < nokfh) {
+    //     tempAMT++;
+    //   }
+    //   if(tempAMT > 10) {
+    //     return;
+    //   }
+    //   else {
+    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKFH", "dir": "BUY", "price": nokfh, "size": 2*tempAMT})+"\n");
+    //     counter++;
+    //     client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "size": 2*tempAMT})+"\n");
+    //     counter++;
+    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 2*tempAMT})+"\n");
+    //     counter++;
+    //   }
+    // }
   }
 
   function bonds() {
