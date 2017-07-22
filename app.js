@@ -21,7 +21,7 @@ client.on('data', function(data) {
 
     // var buf = new Buffer(JSON.stringify(data), "utf-8");
     // var temp = JSON.parse(buf.toString());
-    console.log(data);
+    console.log(JSON.stringify(data));
     //console.log(typeof data);
     //var splitted = lines.split('\n');
 
