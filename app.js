@@ -11,7 +11,7 @@ client.connect(PORT, HOST, function() {
     console.log('CONNECTED TO: ' + PROD + ':' + PORT);
     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
     client.write("HELLO CTS\n");
-
+    
 });
 
 // Add a 'data' event handler for the client socket
