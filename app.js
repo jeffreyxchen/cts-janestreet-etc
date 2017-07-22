@@ -7,6 +7,11 @@ var PROD = '1.1.1.1';
 var PORT = 25000;
 
 var client = new net.Socket();
+var nokfh_buy = 0;
+var nokfh_sell = 0;
+var nokus_buy = 0;
+var nokus_sell = 0;
+
 client.connect(PORT, TEST, function() {
 
     console.log('CONNECTED TO: ' + TEST + ':' + PORT);
@@ -21,9 +26,33 @@ client.on('data', function(data) {
     var stringData = data.toString('utf-8').split("\n");
     var obj = JSON.parse(stringData[stringData.length - 2]);
     if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
-      var symbol = obj.symbol;
-      var buy = obj.buy[0][0];
-      var sell = obj.sell[0][0];
+      if (obj.symbol === "NOKUS") {
+        console.log(obj.buy);
+        console.log(obj.sell);
+        if (obj.buy[0] !== undefined) {
+          nokus_buy = obj.buy[0][0];
+        }
+        if (obj.sell[0] !== undefined) {
+          nokus_sell = obj.sell[0][0]
+        }
+      } else {
+        console.log(obj.buy);
+        console.log(obj.sell);
+        if (obj.buy[0] !== undefined) {
+          nokfh_buy = obj.buy[0][0];
+        }
+        if (obj.sell[0] !== undefined) {
+          nokfh_sell = obj.sell[0][0]
+        }
+      }
+
+      if (nokus_buy !== 0 && nokfh_sell !== 0) {
+        adr.doNOKUSArbitrage(nokus_buy, nokfh_sell, client);
+      }
+
+      if (nokus_sell !== 0 && nokfh_buy !== 0) {
+        adr.doNOKFHArbitrage(nokus_sell, nokfh_buy, client);
+      }
 
     }
 });
