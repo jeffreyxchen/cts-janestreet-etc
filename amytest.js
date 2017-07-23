@@ -71,53 +71,61 @@ client.on('data', function(data) {
   var obj = JSON.parse(stringData[stringData.length - 2]);
 
   if (obj.symbol === "AAPL") {
-    if (!obj.buy[0]) {
+    if (obj.buy[0] !== undefined) {
       AAPL_buy = obj.buy[0][0];
     }
-    if (!obj.sell[0]) {
+    if (obj.sell[0] !== undefined) {
       AAPL_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "BOND") {
-    if (!obj.buy[0]) {
+    if (obj.buy[0] !== undefined) {
       BOND_buy = obj.buy[0][0];
     }
-    if (!obj.sell[0]) {
+    if (obj.sell[0] !== undefined) {
       BOND_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "MSFT") {
-    if (!obj.buy[0]) {
+    if (obj.buy[0] !== undefined) {
       MSFT_buy = obj.buy[0][0];
     }
-    if (!obj.sell[0]) {
+    if (obj.sell[0] !== undefined) {
       MSFT_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "GOOG") {
-    if (!obj.buy[0]) {
+    if (obj.buy[0] !== undefined) {
       GOOG_buy = obj.buy[0][0];
     }
-    if (!obj.sell[0]) {
+    if (obj.sell[0] !== undefined) {
       GOOG_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "XLK") {
-    if (!obj.buy[0]) {
+    if (obj.buy[0] !== undefined) {
       XLK_buy = obj.buy[0][0];
     }
-    if (!obj.sell[0]) {
+    if (obj.sell[0] !== undefined) {
       XLK_sell = obj.sell[0][0];
     }
   }
 
-  if(XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0) {
+  XLK = (XLK_buy + XLK_sell)/2;
+  BOND = (BOND_buy + BOND_sell)/2;
+  AAPL = (AAPL_buy + AAPL_sell)/2;
+  MSFT = (MSFT_buy + MSFT_sell)/2;
+  GOOG = (GOOG_buy + GOOG_sell)/2;
+
+  if(XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0 &&
+     XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0) {
     console.log('doing XLK');
-    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,150);
+    doXLKArbitrage(XLK, BOND, AAPL, MSFT, GOOG, 100);
   }
-  if(XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0) {
+  if(XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0 &&
+     XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0) {
     console.log('doing reverse XLK');
-    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,150);
+    doReverseXLKArbitrage(XLK, BOND, AAPL, MSFT, GOOG, 100);
   }
 
   // var stringData = data.toString('utf-8').split("\n");
