@@ -107,7 +107,7 @@ client.on('data', function(data) {
 
     if (canceler[pennyIdx * 2 + 1] >= 20) {
       console.log(canceler[pennyIdx*2])
-      if (compare(canceler[pennyIdx*2])/20 > buyPrice) {
+      if (symbol == "APPL" || symbol == "MSFT") {
         client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue - 1, "size": 5}) + "\n")
         counter++;
         console.log(canceler[pennyIdx*2])
