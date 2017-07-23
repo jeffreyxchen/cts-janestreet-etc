@@ -18,7 +18,6 @@ client.connect(PORT, TEST, function() {
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
   client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n");
-  client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 100})+"\n");
 });
 
 // Add a 'data' event handler for the client socket
