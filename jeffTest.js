@@ -86,23 +86,38 @@ client.on('data', function(data) {
     // }
   }
 
-  function penny(symbol, buyPrice, sellPrice) {
+  function penny(symbol, buyPrice, sellPrice, pennyArray) {
     if(sellPrice - buyPrice > 3) {
-      console.log('test');
+      //console.log('test');
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1})+"\n");
       counter++;
-      console.log("DOES IT GET HERE??");
+      //console.log("DOES IT GET HERE??");
     }
   }
 
+  var pennyArr = [];
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
   //console.log(stringData[stringData.length - 3])
-  // if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
-  //   console.log(obj);
-  // }
+
+  for (var i = 0; i < stringData.length; i++) {
+    if (stringData[i][0] === "{") {
+      var temp = JSON.parse(stringData[i]);
+      if (temp.type === "ack" || temp.type === "reject" || temp.type === "error" || temp.type === "out" || temp.type == "fill") {
+        if (temp.type === "fill") {
+          if (temp.dir === "BUY") {
+            pennyArr.push(temp.order_id);
+          } else if (temp.dir === "SELL") {
+            var tempIdx = pennyArr.indexOf(temp.order_id);
+            pennyArr.splice(tempIdx, 1);
+          }
+        }
+        console.log(pennyArr);
+      }
+    }
+  }
 
   //Pennying
   var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
@@ -119,7 +134,7 @@ client.on('data', function(data) {
         pennyNOKFHsell = obj.sell[0][0];
       }
       if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
-        console.log('NOKFH');
+        //console.log('NOKFH');
         penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
         pennyNOKFHbuy = 0
         pennyNOKFHsell = 0;
@@ -133,7 +148,7 @@ client.on('data', function(data) {
         pennyNOKUSsell = obj.sell[0][0];
       }
       if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
-        console.log('NOKUS');
+        //console.log('NOKUS');
         penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
         pennyNOKUSbuy = 0;
         pennyNOKUSsell = 0;
@@ -147,7 +162,7 @@ client.on('data', function(data) {
         pennyAAPLsell = obj.sell[0][0];
       }
       if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
-        console.log('AAPL');
+        //console.log('AAPL');
         penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
         pennyAAPLbuy = 0;
         pennyAAPLsell = 0;
@@ -161,7 +176,7 @@ client.on('data', function(data) {
         pennyMSFTsell = obj.sell[0][0];
       }
       if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
-        console.log('MSFT');
+        //console.log('MSFT');
         penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
         pennyMSFTbuy = 0;
         pennyMSFTsell = 0;
@@ -175,7 +190,7 @@ client.on('data', function(data) {
         pennyGOOGsell = obj.sell[0][0];
       }
       if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
-        console.log('GOOG');
+        //console.log('GOOG');
         penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
         pennyGOOGbuy = 0;
         pennyGOOGsell = 0;
