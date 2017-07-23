@@ -86,7 +86,7 @@ client.on('data', function(data) {
     // }
   }
 
-  function penny(symbol, buyPrice, sellPrice) {
+  function penny(symbol, buyPrice, sellPrice, pennyArray) {
     if(sellPrice - buyPrice > 3) {
       console.log('test');
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
@@ -100,11 +100,19 @@ client.on('data', function(data) {
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
   //console.log(stringData[stringData.length - 3])
-  // if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
-  //   console.log(obj);
-  // }
+  if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
+    if (obj.type === "fill") {
+      console.log(obj);
+    }
+    if (stringData[stringData.length - 3] != undefined) {
+      if (JSON.parse(stringData[stringData.length - 3]).type === "fill") {
+        console.log(JSON.parse(stringData[stringData.length - 3]));
+      }
+    }
+  }
 
   //Pennying
+  pennyArr = [];
   var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
   var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
   var pennyAAPLsell = 0, pennyAAPLbuy = 0;
