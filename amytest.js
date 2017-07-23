@@ -113,11 +113,11 @@ client.on('data', function(data) {
 
   if(XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0) {
     console.log('doing XLK');
-    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,100);
+    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,150);
   }
   if(XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0) {
     console.log('doing reverse XLK');
-    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,100);
+    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,150);
   }
 
   // var stringData = data.toString('utf-8').split("\n");
