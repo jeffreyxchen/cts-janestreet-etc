@@ -15,6 +15,7 @@ var counter = 0;
 
 var canceler = [[],0,[],0,[],0,[],0,[],0];
 var timer = 0;
+var swap = true;
 
 var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
 var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
@@ -101,18 +102,18 @@ client.on('data', function(data) {
 
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
-    var swap = true;
+
     if (timer <= 0) {
       timer = compare();
       swap = !swap;
     }
 
     if (swap) {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice - 10 , "size": 5}) + "\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice - 10 , "size": 1}) + "\n")
       counter++;
       timer--;
     } else {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice + 10, "size": 5}) + "\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice + 10, "size": 1}) + "\n")
       counter++;
       timer--;
     }
