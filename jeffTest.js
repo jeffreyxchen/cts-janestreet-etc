@@ -154,18 +154,23 @@ client.on('data', function(data) {
   }
 
   if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
+    console.log('NOKFH');
     penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
   }
   if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
+    console.log('NOKUS');
     penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
   }
   if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
+    console.log('AAPL');
     penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
   }
   if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
+    console.log('MSFT');
     penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
   }
   if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
+    console.log('GOOG');
     penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
   }
 
