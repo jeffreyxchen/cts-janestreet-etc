@@ -111,7 +111,7 @@ client.on('data', function(data) {
     swap = true;
 
     if (swap) {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice - 10 , "size": 1}) + "\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice - 2 , "size": 1}) + "\n")
       counter++;
       timer--;
     } else {
