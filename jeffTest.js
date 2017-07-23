@@ -96,12 +96,11 @@ client.on('data', function(data) {
 
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
 
-    if (canceler[pennyIdx*2] !== 0) {
-      client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2]}) + "\n")
-      client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2 + 1]}) + "\n")
-    }
-
-    if(sellPrice - buyPrice > 3) {
+    if(sellPrice - buyPrice > 1) {
+      if (canceler[pennyIdx*2] !== 0) {
+        client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2]}) + "\n")
+        client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2 + 1]}) + "\n")
+      }
       //console.log('test');
       var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1});
       var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1});
