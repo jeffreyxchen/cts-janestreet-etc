@@ -47,8 +47,9 @@ client.on('data', function(data) {
   }
 
   function doReverseXLKArbitrage(xlk,bond,aapl,msft,goog,conversionFee) {
-    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee;
-    if (xlk*10 > cost){
+    var cost = conversionFee;
+    var total = 3*bond + 2*aapl +3*msft + 2*goog;
+    if (xlk*10 - cost > total){
       //sell xlk
       console.log(cost, '<', xlk*10);
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY","price":bond, "size": 3})+"\n")
