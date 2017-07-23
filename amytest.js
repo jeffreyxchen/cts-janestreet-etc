@@ -30,7 +30,7 @@ client.on('data', function(data) {
     var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
     if (xlk*10 < cost){
       //buy xlk
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price":xlm,"size": 10})+"\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price": xlk,"size": 10})+"\n")
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "SELL", "size": 10})+"\n")
       counter++;
@@ -59,7 +59,7 @@ client.on('data', function(data) {
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "BUY", "size": 10})+"\n")
       counter++;
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "SELL", "price":xlm,"size": 10})+"\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "SELL", "price": xlk,"size": 10})+"\n")
       counter++;
     }
   }
