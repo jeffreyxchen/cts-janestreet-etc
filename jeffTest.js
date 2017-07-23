@@ -14,6 +14,7 @@ var nokus_sell = 0;
 var counter = 0;
 
 var canceler = [[],0,[],0,[],0,[],0,[],0];
+var timer = 0;
 
 var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
 var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
@@ -95,11 +96,7 @@ client.on('data', function(data) {
   }
 
   function compare(arr) {
-    var complete = 0;
-    for (var i = 0; i < 20; i++) {
-      complete += arr[i]
-    }
-    return complete;
+    return Math.random() * 100;
   }
 
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
@@ -108,7 +105,7 @@ client.on('data', function(data) {
     if (canceler[pennyIdx * 2 + 1] >= 20) {
       console.log(canceler[pennyIdx*2])
       if (true) {
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue, "size": 5}) + "\n")
+        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice, "size": 5}) + "\n")
         counter++;
         console.log(canceler[pennyIdx*2])
         canceler[pennyIdx*2].push(fairValue);
