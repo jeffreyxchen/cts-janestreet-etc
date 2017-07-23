@@ -27,11 +27,11 @@ var counter = 0;
 client.on('data', function(data) {
   function doXLKArbitrage(xlk,bond,aapl,msft,goog,conversionFee){
     // compare xlk/10 with 3bond,2appl,3msft,2goog + 100 conversion fee
-    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
-    if (xlk*10 > cost){
+    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee;
+    if (xlk*10 < cost){
       //buy xlk
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price": xlk,"size": 10})+"\n")
-      counter++;
+      // client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price": xlk,"size": 10})+"\n")
+      // counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "SELL", "size": 10})+"\n")
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL","price":bond, "size": 3})+"\n")
@@ -46,11 +46,11 @@ client.on('data', function(data) {
   }
 
   function doReverseXLKArbitrage(xlk,bond,aapl,msft,goog,conversionFee) {
-    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
-    if (xlk*10 < cost){
+    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee;
+    if (xlk*10 > cost){
       //sell xlk
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY","price":bond, "size": 3})+"\n")
-      counter++;
+      // client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY","price":bond, "size": 3})+"\n")
+      // counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "AAPL", "dir": "BUY","price":aapl, "size": 2})+"\n")
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "MSFT", "dir": "BUY","price":msft, "size": 3})+"\n")
@@ -110,11 +110,11 @@ client.on('data', function(data) {
 
   if(XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0) {
     console.log('doing XLK');
-    doReverseXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,100);
+    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,100);
   }
   if(XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0) {
     console.log('doing reverse XLK');
-    doXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,100);
+    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,100);
   }
 
   // var stringData = data.toString('utf-8').split("\n");
