@@ -102,8 +102,71 @@ client.on('data', function(data) {
   // }
 
   //Pennying
+  var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
+  var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
+  var pennyAAPLsell = 0, pennyAAPLbuy = 0;
+  var pennyMSFTsell = 0, pennyMSFTbuy = 0;
+  var pennyGOOGsell = 0, pennyGOOGbuy = 0;
   if (obj.type === "book") {
-    penny(obj.symbol, obj.buy[0][0], obj.sell[0][0]);
+    if (obj.symbol === "NOKFH") {
+      if (obj.buy[0] !== undefined) {
+        pennyNOKFHbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyNOKFHsell = obj.sell[0][0];
+      }
+    }
+    else if (obj.symbol === "NOKUS") {
+      if (obj.buy[0] !== undefined) {
+        pennyNOKUSbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyNOKUSsell = obj.sell[0][0];
+      }
+    }
+    else if (obj.symbol === "AAPL") {
+      if (obj.buy[0] !== undefined) {
+        pennyAAPLbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyAAPLsell = obj.sell[0][0];
+      }
+    }
+    else if (obj.symbol === "MSFT") {
+      if (obj.buy[0] !== undefined) {
+        pennyMSFTbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyMSFTsell = obj.sell[0][0];
+      }
+    }
+    else if (obj.symbol === "GOOG") {
+      if (obj.buy[0] !== undefined) {
+        pennyGOOGbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyGOOGsell = obj.sell[0][0];
+      }
+    }
+    else {
+      return;
+    }
+  }
+
+  if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
+    penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
+  }
+  if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
+    penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
+  }
+  if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
+    penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
+  }
+  if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
+    penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
+  }
+  if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
+    penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
   }
 
   //ADR Arbitrage
