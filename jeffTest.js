@@ -97,8 +97,9 @@ client.on('data', function(data) {
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
     var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue, "size": 1});
-    var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": fairValue+1, "size": 1});
+    var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": fairValue, "size": 1});
     client.write(string1 +"\n" + string2 + "\n");
+    counter = counter + 2;
 
     if(sellPrice - buyPrice > 1) {
       // if (canceler[pennyIdx*2] !== 0) {
@@ -109,7 +110,7 @@ client.on('data', function(data) {
 
       canceler[pennyIdx*2] = counter;
       canceler[pennyIdx*2 + 1] = counter + 1;
-      counter = counter + 2;
+
       //console.log("DOES IT GET HERE??");
     }
   }
