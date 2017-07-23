@@ -13,7 +13,7 @@ var nokus_buy = 0;
 var nokus_sell = 0;
 var counter = 0;
 
-client.connect(PORT, PROD, function() {
+client.connect(TEST, PROD, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
