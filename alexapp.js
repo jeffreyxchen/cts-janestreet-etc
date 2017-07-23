@@ -48,11 +48,12 @@ client.on('data', function(data) {
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
+      console.log("hello");
       counter++;
     }
   }
 
-  bonds();
+  //bonds();
 
   function bonds() {
     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 1})+"\n");
