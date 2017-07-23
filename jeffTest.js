@@ -21,7 +21,7 @@ var pennyAAPLsell = 0, pennyAAPLbuy = 0;
 var pennyMSFTsell = 0, pennyMSFTbuy = 0;
 var pennyGOOGsell = 0, pennyGOOGbuy = 0;
 
-client.connect(PORT, PROD, function() {
+client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
