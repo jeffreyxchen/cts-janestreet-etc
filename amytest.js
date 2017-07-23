@@ -57,6 +57,9 @@ client.on('data', function(data) {
     }
   }
 
+  var stringData = data.toString('utf-8').split("\n");
+  var obj = JSON.parse(stringData[stringData.length - 2]);
+  
   var AAPL_buy = 0, AAPL_sell = 0;
   var BOND_buy = 0, BOND_sell = 0;
   var MSFT_buy = 0, MSFT_sell = 0;
