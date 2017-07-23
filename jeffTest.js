@@ -97,6 +97,7 @@ client.on('data', function(data) {
     }
   }
 
+  var pennyArr = [];
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
   //console.log(stringData[stringData.length - 3])
@@ -106,14 +107,19 @@ client.on('data', function(data) {
       var temp = JSON.parse(stringData[i]);
       if (temp.type === "ack" || temp.type === "reject" || temp.type === "error" || temp.type === "out" || temp.type == "fill") {
         if (temp.type === "fill") {
-          console.log(temp);
+          if (temp.dir === "BUY") {
+            pennyArr.push(temp.order_id);
+          } else if (temp.dir === "SELL") {
+            var tempIdx = pennyArr.indexOf(temp.order_id);
+            pennyArr.splice(tempIdx, 1);
+          }
         }
+        console.log(pennyArr);
       }
     }
   }
 
   //Pennying
-  pennyArr = [];
   var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
   var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
   var pennyAAPLsell = 0, pennyAAPLbuy = 0;
