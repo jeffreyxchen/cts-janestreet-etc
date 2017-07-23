@@ -15,6 +15,12 @@ client.connect(PORT, TEST, function() {
   client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n");
 });
 
+var AAPL_buy = 0, AAPL_sell = 0;
+var BOND_buy = 0, BOND_sell = 0;
+var MSFT_buy = 0, MSFT_sell = 0;
+var GOOG_buy = 0, GOOG_sell = 0;
+var XLK_buy = 0, XLK_sell = 0;
+
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
@@ -59,14 +65,6 @@ client.on('data', function(data) {
 
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
-
-  console.log(obj);
-
-  var AAPL_buy = 0, AAPL_sell = 0;
-  var BOND_buy = 0, BOND_sell = 0;
-  var MSFT_buy = 0, MSFT_sell = 0;
-  var GOOG_buy = 0, GOOG_sell = 0;
-  var XLK_buy = 0, XLK_sell = 0;
 
   if (obj.symbol === "AAPL") {
     if (obj.buy[0] !== undefined) {
