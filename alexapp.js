@@ -18,6 +18,7 @@ client.connect(PORT, TEST, function() {
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
   client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n");
+  client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 30})+"\n");
 });
 
 // Add a 'data' event handler for the client socket
@@ -48,6 +49,7 @@ client.on('data', function(data) {
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "NOKUS", "dir": "BUY", "size": 5})+"\n");
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "NOKUS", "dir": "SELL", "price": nokus, "size": 5})+"\n");
+      console.log("hello");
       counter++;
     }
   }
@@ -92,9 +94,7 @@ client.on('data', function(data) {
     if (nokus_sell !== 0 && nokfh_buy !== 0) {
       doNOKFHArbitrage(nokus_sell, nokfh_buy);
     }
-
-    //bonds();
-
+    bonds();
   }
 });
 

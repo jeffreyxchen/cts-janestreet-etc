@@ -87,24 +87,105 @@ client.on('data', function(data) {
   }
 
   function penny(symbol, buyPrice, sellPrice) {
-    if(buyPrice - sellPrice > 0.02) {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+0.01, "size": 1})+"\n");
+    if(sellPrice - buyPrice > 3) {
+      console.log('test');
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
       counter++;
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-0.01, "size": 1})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1})+"\n");
       counter++;
+      console.log("DOES IT GET HERE??");
     }
   }
 
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
+  //console.log(stringData[stringData.length - 3])
   // if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
   //   console.log(obj);
   // }
 
   //Pennying
+  var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
+  var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
+  var pennyAAPLsell = 0, pennyAAPLbuy = 0;
+  var pennyMSFTsell = 0, pennyMSFTbuy = 0;
+  var pennyGOOGsell = 0, pennyGOOGbuy = 0;
   if (obj.type === "book") {
-    penny(obj.symbol, obj.buy[0][0], obj.sell[0][0]);
+    if (obj.symbol === "NOKFH") {
+      if (obj.buy[0] !== undefined) {
+        pennyNOKFHbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyNOKFHsell = obj.sell[0][0];
+      }
+      if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
+        console.log('NOKFH');
+        penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
+        pennyNOKFHbuy = 0
+        pennyNOKFHsell = 0;
+      }
+    }
+    else if (obj.symbol === "NOKUS") {
+      if (obj.buy[0] !== undefined) {
+        pennyNOKUSbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyNOKUSsell = obj.sell[0][0];
+      }
+      if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
+        console.log('NOKUS');
+        penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
+        pennyNOKUSbuy = 0;
+        pennyNOKUSsell = 0;
+      }
+    }
+    else if (obj.symbol === "AAPL") {
+      if (obj.buy[0] !== undefined) {
+        pennyAAPLbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyAAPLsell = obj.sell[0][0];
+      }
+      if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
+        console.log('AAPL');
+        penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
+        pennyAAPLbuy = 0;
+        pennyAAPLsell = 0;
+      }
+    }
+    else if (obj.symbol === "MSFT") {
+      if (obj.buy[0] !== undefined) {
+        pennyMSFTbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyMSFTsell = obj.sell[0][0];
+      }
+      if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
+        console.log('MSFT');
+        penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
+        pennyMSFTbuy = 0;
+        pennyMSFTsell = 0;
+      }
+    }
+    else if (obj.symbol === "GOOG") {
+      if (obj.buy[0] !== undefined) {
+        pennyGOOGbuy = obj.buy[0][0];
+      }
+      if (obj.sell[0] !== undefined) {
+        pennyGOOGsell = obj.sell[0][0];
+      }
+      if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
+        console.log('GOOG');
+        penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
+        pennyGOOGbuy = 0;
+        pennyGOOGsell = 0;
+      }
+    }
+    else {
+      return;
+    }
   }
+
 
   //ADR Arbitrage
   if (obj.type === "book" && (obj.symbol === "NOKFH" || obj.symbol === "NOKUS")) {
