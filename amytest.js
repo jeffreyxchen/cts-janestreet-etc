@@ -71,42 +71,42 @@ client.on('data', function(data) {
   var obj = JSON.parse(stringData[stringData.length - 2]);
 
   if (obj.symbol === "AAPL") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       AAPL_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       AAPL_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "BOND") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       BOND_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       BOND_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "MSFT") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       MSFT_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       MSFT_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "GOOG") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       GOOG_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       GOOG_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "XLK") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       XLK_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       XLK_sell = obj.sell[0][0];
     }
   }
