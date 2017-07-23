@@ -15,6 +15,13 @@ client.connect(PORT, TEST, function() {
   client.write(JSON.stringify({"type": "hello", "team": "CTS"}) + "\n");
 });
 
+var AAPL_buy = 0, AAPL_sell = 0;
+var BOND_buy = 0, BOND_sell = 0;
+var MSFT_buy = 0, MSFT_sell = 0;
+var GOOG_buy = 0, GOOG_sell = 0;
+var XLK_buy = 0, XLK_sell = 0;
+var counter = 0;
+
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
 client.on('data', function(data) {
@@ -23,7 +30,7 @@ client.on('data', function(data) {
     var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
     if (xlk*10 < cost){
       //buy xlk
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price":xlm,"size": 10})+"\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price": xlk,"size": 10})+"\n")
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "SELL", "size": 10})+"\n")
       counter++;
@@ -52,21 +59,13 @@ client.on('data', function(data) {
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "BUY", "size": 10})+"\n")
       counter++;
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "SELL", "price":xlm,"size": 10})+"\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "SELL", "price": xlk,"size": 10})+"\n")
       counter++;
     }
   }
 
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
-
-  console.log(obj);
-
-  var AAPL_buy = 0, AAPL_sell = 0;
-  var BOND_buy = 0, BOND_sell = 0;
-  var MSFT_buy = 0, MSFT_sell = 0;
-  var GOOG_buy = 0, GOOG_sell = 0;
-  var XLK_buy = 0, XLK_sell = 0;
 
   if (obj.symbol === "AAPL") {
     if (obj.buy[0] !== undefined) {
@@ -111,11 +110,11 @@ client.on('data', function(data) {
 
   if(XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0) {
     console.log('doing XLK');
-    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,100);
+    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,200);
   }
   if(XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0) {
     console.log('doing reverse XLK');
-    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,100);
+    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,200);
   }
 
   // var stringData = data.toString('utf-8').split("\n");
