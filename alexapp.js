@@ -53,7 +53,7 @@ client.on('data', function(data) {
     }
   }
 
-  bonds();
+  //bonds();
 
   function bonds() {
     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "price": 999, "size": 1})+"\n");
