@@ -131,7 +131,9 @@ client.on('data', function(data) {
     //   canceler[pennyIdx*2 + 1]++;
     // }
 
-    if (fairValue > buyPrice) {
+    var rand = Math.random();
+
+    if (rand > 0.75) {
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice, "size": 5}) + "\n")
       counter++;
     } else {
