@@ -88,12 +88,12 @@ client.on('data', function(data) {
 
   function penny(symbol, buyPrice, sellPrice, pennyArray) {
     if(sellPrice - buyPrice > 3) {
-      console.log('test');
+      //console.log('test');
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1})+"\n");
       counter++;
-      console.log("DOES IT GET HERE??");
+      //console.log("DOES IT GET HERE??");
     }
   }
 
@@ -127,7 +127,7 @@ client.on('data', function(data) {
         pennyNOKFHsell = obj.sell[0][0];
       }
       if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
-        console.log('NOKFH');
+        //console.log('NOKFH');
         penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
         pennyNOKFHbuy = 0
         pennyNOKFHsell = 0;
@@ -141,7 +141,7 @@ client.on('data', function(data) {
         pennyNOKUSsell = obj.sell[0][0];
       }
       if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
-        console.log('NOKUS');
+        //console.log('NOKUS');
         penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
         pennyNOKUSbuy = 0;
         pennyNOKUSsell = 0;
@@ -155,7 +155,7 @@ client.on('data', function(data) {
         pennyAAPLsell = obj.sell[0][0];
       }
       if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
-        console.log('AAPL');
+        //console.log('AAPL');
         penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
         pennyAAPLbuy = 0;
         pennyAAPLsell = 0;
@@ -169,7 +169,7 @@ client.on('data', function(data) {
         pennyMSFTsell = obj.sell[0][0];
       }
       if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
-        console.log('MSFT');
+        //console.log('MSFT');
         penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
         pennyMSFTbuy = 0;
         pennyMSFTsell = 0;
@@ -183,7 +183,7 @@ client.on('data', function(data) {
         pennyGOOGsell = obj.sell[0][0];
       }
       if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
-        console.log('GOOG');
+        //console.log('GOOG');
         penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
         pennyGOOGbuy = 0;
         pennyGOOGsell = 0;
