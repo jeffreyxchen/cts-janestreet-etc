@@ -87,7 +87,7 @@ client.on('data', function(data) {
   }
 
   function penny(symbol, buyPrice, sellPrice) {
-    if(sellPrice - buyPrice > 2) {
+    if(sellPrice - buyPrice > 3) {
       console.log('test');
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
       counter++;
