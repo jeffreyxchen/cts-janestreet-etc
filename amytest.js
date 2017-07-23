@@ -20,6 +20,7 @@ var BOND_buy = 0, BOND_sell = 0;
 var MSFT_buy = 0, MSFT_sell = 0;
 var GOOG_buy = 0, GOOG_sell = 0;
 var XLK_buy = 0, XLK_sell = 0;
+var counter = 0;
 
 // Add a 'data' event handler for the client socket
 // data is what the server sent to this socket
