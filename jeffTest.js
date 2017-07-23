@@ -110,25 +110,33 @@ client.on('data', function(data) {
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
 
-    if (canceler[pennyIdx * 2 + 1] >= 20) {
-      console.log(canceler[pennyIdx*2])
-      if (compare(canceler[pennyIdx*2])) {
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
-        counter++;
-        console.log(canceler[pennyIdx*2])
-        canceler[pennyIdx*2].push(fairValue);
-        canceler[pennyIdx*2].splice(0,1);
-      } else {
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": fairValue - 1, "size": 5}) + "\n")
-        counter++;
-        console.log(canceler[pennyIdx*2])
-        canceler[pennyIdx*2].push(fairValue);
-        canceler[pennyIdx*2].splice(0,1);
-      }
+    // if (canceler[pennyIdx * 2 + 1] >= 20) {
+    //   console.log(canceler[pennyIdx*2])
+    //   if (compare(canceler[pennyIdx*2])) {
+    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
+    //     counter++;
+    //     console.log(canceler[pennyIdx*2])
+    //     canceler[pennyIdx*2].push(fairValue);
+    //     canceler[pennyIdx*2].splice(0,1);
+    //   } else {
+    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": fairValue - 1, "size": 5}) + "\n")
+    //     counter++;
+    //     console.log(canceler[pennyIdx*2])
+    //     canceler[pennyIdx*2].push(fairValue);
+    //     canceler[pennyIdx*2].splice(0,1);
+    //   }
+    // } else {
+    //   console.log(canceler[pennyIdx*2])
+    //   canceler[pennyIdx*2].push(fairValue);
+    //   canceler[pennyIdx*2 + 1]++;
+    // }
+
+    if (fairValue > buyPrice) {
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice, "size": 5}) + "\n")
+      counter++;
     } else {
-      console.log(canceler[pennyIdx*2])
-      canceler[pennyIdx*2].push(fairValue);
-      canceler[pennyIdx*2 + 1]++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice, "size": 5}) + "\n")
+      counter++;
     }
 
     // if (canceler[pennyIdx])
