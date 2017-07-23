@@ -87,11 +87,11 @@ client.on('data', function(data) {
   }
 
   function penny(symbol, buyPrice, sellPrice) {
-    if(sellPrice - buyPrice > 0.02) {
+    if(sellPrice - buyPrice > 1) {
       console.log('test');
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+0.01, "size": 1})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
       counter++;
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-0.01, "size": 1})+"\n");
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1})+"\n");
       counter++;
       console.log("DOES IT GET HERE??");
     }
@@ -99,7 +99,7 @@ client.on('data', function(data) {
 
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
-  console.log(stringData[stringData.length - 3])
+  //console.log(stringData[stringData.length - 3])
   // if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
   //   console.log(obj);
   // }
