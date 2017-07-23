@@ -95,51 +95,46 @@ client.on('data', function(data) {
   }
 
   function compare(arr) {
-    var pos = 0;
-    var neg = 0;
-    for (var i = 1; i < 5; i++) {
-      if (arr[i] - arr[i - 1] > 0) {
-        pos++;
-      } else {
-        neg++;
-      }
+    var complete = 0;
+    for (var i = 0; i < 5; i++) {
+      complete += arr[i]
     }
-    return pos > neg
+    return complete;
   }
 
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
 
-    // if (canceler[pennyIdx * 2 + 1] >= 20) {
-    //   console.log(canceler[pennyIdx*2])
-    //   if (compare(canceler[pennyIdx*2])) {
-    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
-    //     counter++;
-    //     console.log(canceler[pennyIdx*2])
-    //     canceler[pennyIdx*2].push(fairValue);
-    //     canceler[pennyIdx*2].splice(0,1);
-    //   } else {
-    //     client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": fairValue - 1, "size": 5}) + "\n")
-    //     counter++;
-    //     console.log(canceler[pennyIdx*2])
-    //     canceler[pennyIdx*2].push(fairValue);
-    //     canceler[pennyIdx*2].splice(0,1);
-    //   }
-    // } else {
-    //   console.log(canceler[pennyIdx*2])
-    //   canceler[pennyIdx*2].push(fairValue);
-    //   canceler[pennyIdx*2 + 1]++;
-    // }
-
-    var rand = Math.random();
-
-    if (rand > 0.75) {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice, "size": 5}) + "\n")
-      counter++;
+    if (canceler[pennyIdx * 2 + 1] >= 20) {
+      console.log(canceler[pennyIdx*2])
+      if (compare(canceler[pennyIdx*2])/20 > buyPrice) {
+        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
+        counter++;
+        console.log(canceler[pennyIdx*2])
+        canceler[pennyIdx*2].push(fairValue);
+        canceler[pennyIdx*2].splice(0,1);
+      } else {
+        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": fairValue - 1, "size": 5}) + "\n")
+        counter++;
+        console.log(canceler[pennyIdx*2])
+        canceler[pennyIdx*2].push(fairValue);
+        canceler[pennyIdx*2].splice(0,1);
+      }
     } else {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice, "size": 5}) + "\n")
-      counter++;
+      console.log(canceler[pennyIdx*2])
+      canceler[pennyIdx*2].push(fairValue);
+      canceler[pennyIdx*2 + 1]++;
     }
+
+    // var rand = Math.random();
+    //
+    // if (rand > 0.75) {
+    //   client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice, "size": 5}) + "\n")
+    //   counter++;
+    // } else {
+    //   client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice, "size": 5}) + "\n")
+    //   counter++;
+    // }
 
     // if (canceler[pennyIdx])
     // var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue - 2, "size": 5});
