@@ -96,8 +96,8 @@ client.on('data', function(data) {
 
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
-    var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue, "size": 5});
-    var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": fairValue + 1, "size": 5});
+    var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue - 2, "size": 5});
+    var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": fairValue + 2, "size": 5});
     client.write(string1 +"\n" + string2 + "\n");
     counter = counter + 2;
 
