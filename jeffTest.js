@@ -102,7 +102,7 @@ client.on('data', function(data) {
   //console.log(stringData[stringData.length - 3])
 
   for (var i = 0; i < stringData.length; i++) {
-    if (stringData[i] !== '\n' || stringData[i].includes("undefined")) {
+    if (stringData[i][0] === "{") {
       var temp = JSON.parse(stringData[i]);
       console.log(temp);
     }
