@@ -110,7 +110,7 @@ client.on('data', function(data) {
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
 
-    if (canceler[pennyIdx * 2 + 1] >= 5) {
+    if (canceler[pennyIdx * 2 + 1] >= 20) {
       console.log(canceler[pennyIdx*2])
       if (compare(canceler[pennyIdx*2])) {
         client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
