@@ -136,8 +136,8 @@ client.on('data', function(data) {
       if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
         //console.log('NOKFH');
         penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
-        pennyNOKFHbuy = 0
-        pennyNOKFHsell = 0;
+        //pennyNOKFHbuy = 0
+        //pennyNOKFHsell = 0;
       }
     }
     else if (obj.symbol === "NOKUS") {
@@ -150,8 +150,8 @@ client.on('data', function(data) {
       if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
         //console.log('NOKUS');
         penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
-        pennyNOKUSbuy = 0;
-        pennyNOKUSsell = 0;
+        //pennyNOKUSbuy = 0;
+        //pennyNOKUSsell = 0;
       }
     }
     else if (obj.symbol === "AAPL") {
@@ -164,8 +164,8 @@ client.on('data', function(data) {
       if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
         //console.log('AAPL');
         penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
-        pennyAAPLbuy = 0;
-        pennyAAPLsell = 0;
+        //pennyAAPLbuy = 0;
+        //pennyAAPLsell = 0;
       }
     }
     else if (obj.symbol === "MSFT") {
@@ -178,8 +178,8 @@ client.on('data', function(data) {
       if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
         //console.log('MSFT');
         penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
-        pennyMSFTbuy = 0;
-        pennyMSFTsell = 0;
+        //pennyMSFTbuy = 0;
+        //pennyMSFTsell = 0;
       }
     }
     else if (obj.symbol === "GOOG") {
@@ -192,8 +192,8 @@ client.on('data', function(data) {
       if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
         //console.log('GOOG');
         penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
-        pennyGOOGbuy = 0;
-        pennyGOOGsell = 0;
+        //pennyGOOGbuy = 0;
+        //pennyGOOGsell = 0;
       }
     }
     else {
