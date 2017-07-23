@@ -125,6 +125,7 @@ client.on('data', function(data) {
         canceler[pennyIdx*2].splice(0,1);
       }
     } else {
+      console.log(canceler[pennyIdx*2])
       canceler[pennyIdx*2].append(fairValue);
       canceler[pennyIdx*2 + 1]++;
     }
