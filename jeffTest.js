@@ -13,7 +13,7 @@ var nokus_buy = 0;
 var nokus_sell = 0;
 var counter = 0;
 
-var canceler = [0,0,0,0,0,0,0,0,0,0];
+var canceler = [[],0,[],0,[],0,[],0,[],0];
 
 var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
 var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
@@ -94,25 +94,57 @@ client.on('data', function(data) {
     // }
   }
 
+  function compare(arr) {
+    var pos = 0;
+    var neg = 0;
+    for (var i = 1; i < 5; i++) {
+      if (arr[i] - arr[i - 1] > 0) {
+        pos++;
+      } else {
+        neg++;
+      }
+    }
+    return pos > neg
+  }
+
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
-    var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue - 2, "size": 5});
-    // var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": fairValue + 2, "size": 5});
-    client.write(string1 +"\n");
-    counter = counter + 2;
 
-    if(sellPrice - buyPrice > 1) {
-      // if (canceler[pennyIdx*2] !== 0) {
-      //   client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2]}) + "\n")
-      //   client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2 + 1]}) + "\n")
-      // }
-      //console.log('test');
-
-      canceler[pennyIdx*2] = counter;
-      canceler[pennyIdx*2 + 1] = counter + 1;
-
-      //console.log("DOES IT GET HERE??");
+    if (canceler[pennyIdx * 2 + 1] >= 5) {
+      if (compare(canceler[pennyIdx*2])) {
+        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
+        counter++;
+        canceler[pennyIdx*2].append(fairValue);
+        canceler[pennyIdx*2].splice(0,1);
+      } else {
+        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": fairValue - 1, "size": 5}) + "\n")
+        counter++;
+        canceler[pennyIdx*2].append(fairValue);
+        canceler[pennyIdx*2].splice(0,1);
+      }
+    } else {
+      canceler[pennyIdx*2].append(fairValue);
+      canceler[pennyIdx*2 + 1]++;
     }
+
+    // if (canceler[pennyIdx])
+    // var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue - 2, "size": 5});
+    // // var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": fairValue + 2, "size": 5});
+    // client.write(string1 +"\n");
+    // counter = counter + 2;
+    //
+    // if(sellPrice - buyPrice > 1) {
+    //   // if (canceler[pennyIdx*2] !== 0) {
+    //   //   client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2]}) + "\n")
+    //   //   client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2 + 1]}) + "\n")
+    //   // }
+    //   //console.log('test');
+    //
+    //   canceler[pennyIdx*2] = counter;
+    //   canceler[pennyIdx*2 + 1] = counter + 1;
+    //
+    //   //console.log("DOES IT GET HERE??");
+    // }
   }
 
   var pennyArr = [];
