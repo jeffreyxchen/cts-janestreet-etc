@@ -104,17 +104,10 @@ client.on('data', function(data) {
   for (var i = 0; i < stringData.length; i++) {
     if (stringData[i][0] === "{") {
       var temp = JSON.parse(stringData[i]);
-      console.log(temp);
-    }
-  }
-
-  if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
-    if (obj.type === "fill") {
-      console.log(obj);
-    }
-    if (stringData[stringData.length - 3] != undefined) {
-      if (JSON.parse(stringData[stringData.length - 3]).type === "fill") {
-        console.log(JSON.parse(stringData[stringData.length - 3]));
+      if (temp.type === "ack" || temp.type === "reject" || temp.type === "error" || temp.type === "out" || temp.type == "fill") {
+        if (temp.type === "fill") {
+          console.log(temp);
+        }
       }
     }
   }
