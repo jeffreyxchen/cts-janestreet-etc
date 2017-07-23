@@ -115,7 +115,7 @@ client.on('data', function(data) {
       counter++;
       timer--;
     } else {
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice + 10, "size": 1}) + "\n")
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice + 2, "size": 1}) + "\n")
       counter++;
       timer--;
     }
