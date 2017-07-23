@@ -89,10 +89,10 @@ client.on('data', function(data) {
   function penny(symbol, buyPrice, sellPrice, pennyArray) {
     if(sellPrice - buyPrice > 3) {
       //console.log('test');
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1})+"\n");
-      counter++;
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1})+"\n");
-      counter++;
+      var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1});
+      var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1});
+      client.write(string1 +"\n" + string2 + "\n");
+      counter = counter + 2;
       //console.log("DOES IT GET HERE??");
     }
   }
