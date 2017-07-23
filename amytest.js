@@ -27,9 +27,10 @@ var counter = 0;
 client.on('data', function(data) {
   function doXLKArbitrage(xlk,bond,aapl,msft,goog,conversionFee){
     // compare xlk/10 with 3bond,2appl,3msft,2goog + 100 conversion fee
-    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
+    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee;
     if (xlk*10 < cost){
       //buy xlk
+      console.log(cost, '>', xlk*10);
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price": xlk,"size": 10})+"\n")
       counter++;
       client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "SELL", "size": 10})+"\n")
@@ -46,9 +47,11 @@ client.on('data', function(data) {
   }
 
   function doReverseXLKArbitrage(xlk,bond,aapl,msft,goog,conversionFee) {
-    var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
-    if (xlk*10 > cost){
+    var cost = conversionFee;
+    var total = 3*bond + 2*aapl +3*msft + 2*goog;
+    if (total < xlk*10 + cost){
       //sell xlk
+      console.log(cost, '<', xlk*10);
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY","price":bond, "size": 3})+"\n")
       counter++;
       client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "AAPL", "dir": "BUY","price":aapl, "size": 2})+"\n")
@@ -68,53 +71,53 @@ client.on('data', function(data) {
   var obj = JSON.parse(stringData[stringData.length - 2]);
 
   if (obj.symbol === "AAPL") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       AAPL_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       AAPL_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "BOND") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       BOND_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       BOND_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "MSFT") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       MSFT_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       MSFT_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "GOOG") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       GOOG_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       GOOG_sell = obj.sell[0][0];
     }
   }
   if (obj.symbol === "XLK") {
-    if (obj.buy[0] !== undefined) {
+    if (!obj.buy[0]) {
       XLK_buy = obj.buy[0][0];
     }
-    if (obj.sell[0] !== undefined) {
+    if (!obj.sell[0]) {
       XLK_sell = obj.sell[0][0];
     }
   }
 
   if(XLK_buy !== 0 && AAPL_sell !== 0 && BOND_sell !== 0 && MSFT_sell !== 0 && GOOG_sell !== 0) {
     console.log('doing XLK');
-    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,200);
+    doXLKArbitrage(XLK_buy,BOND_sell,AAPL_sell,MSFT_sell,GOOG_sell,150);
   }
   if(XLK_sell !== 0 && AAPL_buy !== 0 && BOND_buy !== 0 && MSFT_buy !== 0 && GOOG_buy !== 0) {
     console.log('doing reverse XLK');
-    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,200);
+    doReverseXLKArbitrage(XLK_sell,BOND_buy,AAPL_buy,MSFT_buy,GOOG_buy,150);
   }
 
   // var stringData = data.toString('utf-8').split("\n");
