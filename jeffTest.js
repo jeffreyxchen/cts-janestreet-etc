@@ -96,7 +96,7 @@ client.on('data', function(data) {
 
   function compare(arr) {
     var complete = 0;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 20; i++) {
       complete += arr[i]
     }
     return complete;
@@ -107,7 +107,7 @@ client.on('data', function(data) {
 
     if (canceler[pennyIdx * 2 + 1] >= 20) {
       console.log(canceler[pennyIdx*2])
-      if (compare(canceler[pennyIdx*2])/20 < buyPrice) {
+      if (compare(canceler[pennyIdx*2])/20 > buyPrice) {
         client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue + 1, "size": 5}) + "\n")
         counter++;
         console.log(canceler[pennyIdx*2])
