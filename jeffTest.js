@@ -108,7 +108,7 @@ client.on('data', function(data) {
     if (canceler[pennyIdx * 2 + 1] >= 20) {
       console.log(canceler[pennyIdx*2])
       if (true) {
-        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue - 1, "size": 5}) + "\n")
+        client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": fairValue, "size": 5}) + "\n")
         counter++;
         console.log(canceler[pennyIdx*2])
         canceler[pennyIdx*2].push(fairValue);
