@@ -22,23 +22,42 @@ client.on('data', function(data) {
   function doArbitrage(xlk,bond,aapl,msft,goog,conversionFee){
     // compare xlk/10 with 3bond,2appl,3msft,2goog + 100 conversion fee
     counter=0;
-    conversionFee=100;
     var cost = 3*bond + 2*aapl +3*msft + 2*goog + conversionFee
-    if (xlk*10 <= cost){
+    if (xlk*10 < cost){
       //buy xlk
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "size": 1})+"\n")
-      // return false
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "BUY", "price":xlm,"size": 10})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "SELL", "size": 10})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "SELL","price":bond, "size": 3})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "AAPL", "dir": "SELL","price":aapl, "size": 2})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "MSFT", "dir": "SELL","price":msft, "size": 3})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "GOOG", "dir": "SELL","price":goog, "size": 2})+"\n")
+      counter++;
     }
-    else{
-      //buy bond,appl,msft,goog
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY", "size": 1})+"\n")
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "AAPL", "dir": "BUY", "size": 1})+"\n")
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "MSFT", "dir": "BUY", "size": 1})+"\n")
-      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "GOOG", "dir": "BUY", "size": 1})+"\n")
+    else if (xlk*10 > cost){
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "BOND", "dir": "BUY","price":bond, "size": 3})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "AAPL", "dir": "BUY","price":aapl, "size": 2})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "MSFT", "dir": "BUY","price":msft, "size": 3})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "GOOG", "dir": "BUY","price":goog, "size": 2})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "convert", "order_id": counter, "symbol": "XLK", "dir": "BUY", "size": 10})+"\n")
+      counter++;
+      client.write(JSON.stringify({"type": "add", "order_id": counter, "symbol": "XLK", "dir": "SELL", "price":xlm,"size": 10})+"\n")
+      counter++;
+    }
+    else {
+      return;
+    }
 
-      // return true
-    }
-    counter++
+    doArbitrage(xlk,bond,aapl,msft,goog,100)
+
   }
 
   var stringData = data.toString('utf-8').split("\n");
