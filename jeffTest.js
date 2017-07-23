@@ -13,6 +13,14 @@ var nokus_buy = 0;
 var nokus_sell = 0;
 var counter = 0;
 
+var canceler = [0,0,0,0,0,0,0,0,0,0];
+
+var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
+var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
+var pennyAAPLsell = 0, pennyAAPLbuy = 0;
+var pennyMSFTsell = 0, pennyMSFTbuy = 0;
+var pennyGOOGsell = 0, pennyGOOGbuy = 0;
+
 client.connect(PORT, TEST, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
@@ -86,12 +94,18 @@ client.on('data', function(data) {
     // }
   }
 
-  function penny(symbol, buyPrice, sellPrice, pennyArray) {
+  function penny(symbol, buyPrice, sellPrice, pennyIdx) {
+
+    client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2]}))
+    client.write(JSON.stringify({"type": "cancel", "order_id": canceler[pennyIdx*2 + 1]}))
+
     if(sellPrice - buyPrice > 3) {
       //console.log('test');
       var string1 = JSON.stringify({"type": "add", "order_id": counter, "symbol": symbol, "dir": "BUY", "price": buyPrice+1, "size": 1});
       var string2 = JSON.stringify({"type": "add", "order_id": counter + 1, "symbol": symbol, "dir": "SELL", "price": sellPrice-1, "size": 1});
       client.write(string1 +"\n" + string2 + "\n");
+      canceler[pennyIdx*2] = counter;
+      canceler[pennyIdx*2 + 1] = counter + 1;
       counter = counter + 2;
       //console.log("DOES IT GET HERE??");
     }
@@ -120,11 +134,7 @@ client.on('data', function(data) {
   }
 
   //Pennying
-  var pennyNOKFHsell = 0, pennyNOKFHbuy = 0;
-  var pennyNOKUSsell = 0, pennyNOKUSbuy = 0;
-  var pennyAAPLsell = 0, pennyAAPLbuy = 0;
-  var pennyMSFTsell = 0, pennyMSFTbuy = 0;
-  var pennyGOOGsell = 0, pennyGOOGbuy = 0;
+
   if (obj.type === "book") {
     if (obj.symbol === "NOKFH") {
       if (obj.buy[0] !== undefined) {
@@ -135,7 +145,7 @@ client.on('data', function(data) {
       }
       if (pennyNOKFHbuy !== 0 && pennyNOKFHsell !== 0) {
         //console.log('NOKFH');
-        penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell);
+        penny("NOKFH", pennyNOKFHbuy, pennyNOKFHsell, 0);
         //pennyNOKFHbuy = 0
         //pennyNOKFHsell = 0;
       }
@@ -149,7 +159,7 @@ client.on('data', function(data) {
       }
       if (pennyNOKUSbuy !== 0 && pennyNOKUSsell !== 0) {
         //console.log('NOKUS');
-        penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell);
+        penny("NOKUS", pennyNOKUSbuy, pennyNOKUSsell, 1);
         //pennyNOKUSbuy = 0;
         //pennyNOKUSsell = 0;
       }
@@ -163,7 +173,7 @@ client.on('data', function(data) {
       }
       if (pennyAAPLbuy !== 0 && pennyAAPLsell !== 0) {
         //console.log('AAPL');
-        penny("AAPL", pennyAAPLbuy, pennyAAPLsell);
+        penny("AAPL", pennyAAPLbuy, pennyAAPLsell, 2);
         //pennyAAPLbuy = 0;
         //pennyAAPLsell = 0;
       }
@@ -177,7 +187,7 @@ client.on('data', function(data) {
       }
       if (pennyMSFTbuy !== 0 && pennyMSFTsell !== 0) {
         //console.log('MSFT');
-        penny("MSFT", pennyMSFTbuy, pennyMSFTsell);
+        penny("MSFT", pennyMSFTbuy, pennyMSFTsell, 3);
         //pennyMSFTbuy = 0;
         //pennyMSFTsell = 0;
       }
@@ -191,7 +201,7 @@ client.on('data', function(data) {
       }
       if (pennyGOOGbuy !== 0 && pennyGOOGsell !== 0) {
         //console.log('GOOG');
-        penny("GOOG", pennyGOOGbuy, pennyGOOGsell);
+        penny("GOOG", pennyGOOGbuy, pennyGOOGsell, 4);
         //pennyGOOGbuy = 0;
         //pennyGOOGsell = 0;
       }
