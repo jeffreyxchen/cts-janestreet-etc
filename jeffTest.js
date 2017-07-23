@@ -100,6 +100,14 @@ client.on('data', function(data) {
   var stringData = data.toString('utf-8').split("\n");
   var obj = JSON.parse(stringData[stringData.length - 2]);
   //console.log(stringData[stringData.length - 3])
+
+  for (var i = 0; i < stringData.length; i++) {
+    if (stringData[i] !== '\n') {
+      var temp = JSON.parse(stringData[i]);
+      console.log(temp);
+    }
+  }
+
   if (obj.type === "ack" || obj.type === "reject" || obj.type === "error" || obj.type === "out" || obj.type == "fill") {
     if (obj.type === "fill") {
       console.log(obj);
