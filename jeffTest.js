@@ -22,7 +22,7 @@ var pennyAAPLsell = 0, pennyAAPLbuy = 0;
 var pennyMSFTsell = 0, pennyMSFTbuy = 0;
 var pennyGOOGsell = 0, pennyGOOGbuy = 0;
 
-client.connect(PORT, TEST, function() {
+client.connect(PORT, PROD, function() {
 
   console.log('CONNECTED TO: ' + TEST + ':' + PROD);
   // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
@@ -96,13 +96,13 @@ client.on('data', function(data) {
   }
 
   function compare() {
-    return Math.random() * 100;
+    return Math.random() * 10;
   }
 
   function penny(symbol, buyPrice, sellPrice, pennyIdx) {
     var fairValue = (buyPrice + sellPrice) / 2;
     var swap = true;
-    if (timer == 0) {
+    if (timer <= 0) {
       timer = compare();
       swap = !swap;
     }
