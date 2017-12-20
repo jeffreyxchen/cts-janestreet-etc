@@ -1,3 +1,3 @@
-# cts-janestreet-etc
+<h1> CTS Jane Street ETC </h1>
 
-Make use of ETF and ADR arbitrage and pennying to create an algorithm trading bot for the Jane Street 2017 Electronic Trading Challenge.
+An algorithmic trading bot that makes use of ETF and ADR arbitrage, scalping, and bonds to create an algorithm trading bot for the Jane Street 2017 Electronic Trading Challenge.
